@@ -1,11 +1,18 @@
+<!-- Mobile Sidebar Overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
 <!-- Sidebar -->
-<aside class="fixed left-0 top-0 h-full w-64 bg-white shadow-lg z-40">
+<aside id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-white shadow-lg z-40 md:translate-x-0">
     <div class="flex flex-col h-full">
         <!-- Logo/Brand Section -->
-        <div class="p-6 border-b border-gray-200">
+        <div class="p-6 border-b border-gray-200 flex items-center justify-between">
             <h1 class="text-2xl font-bold text-blue-600">
                 <i class="fas fa-hospital-alt mr-2"></i>Medicare
             </h1>
+            <!-- Mobile Close Button -->
+            <button id="closeSidebar" class="md:hidden text-gray-600 hover:text-gray-800">
+                <i class="fas fa-times text-xl"></i>
+            </button>
         </div>
 
         <!-- Navigation Menu -->

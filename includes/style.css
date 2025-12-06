@@ -104,3 +104,318 @@ h1, h2, h3, h4, h5, h6 {
     100% { transform: rotate(360deg); }
 }
 
+/* ===== MOBILE RESPONSIVE STYLES ===== */
+
+/* Mobile Sidebar - Hidden by default, shown with toggle */
+@media (max-width: 768px) {
+    /* Sidebar becomes a mobile menu */
+    aside {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 50;
+    }
+    
+    aside.mobile-open {
+        transform: translateX(0);
+    }
+    
+    /* Overlay when sidebar is open */
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 45;
+    }
+    
+    .sidebar-overlay.active {
+        display: block;
+    }
+    
+    /* Main content adjusts for mobile */
+    .ml-64 {
+        margin-left: 0 !important;
+    }
+    
+    /* Mobile menu button */
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    /* Header adjustments */
+    header {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    /* Table responsive wrapper */
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Modal adjustments for mobile */
+    .modal > div {
+        margin: 1rem;
+        max-height: calc(100vh - 2rem);
+        width: calc(100% - 2rem);
+    }
+    
+    /* Form adjustments */
+    .grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* Button stack on mobile */
+    .flex.space-x-4 {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .flex.space-x-4 > * {
+        width: 100%;
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+    aside {
+        width: 200px;
+    }
+    
+    .ml-64 {
+        margin-left: 200px !important;
+    }
+    
+    .grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile Navigation Header */
+@media (max-width: 768px) {
+    /* Hide desktop navigation links */
+    nav .absolute.left-1\/2 {
+        display: none;
+    }
+    
+    /* Mobile menu button */
+    .mobile-menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: #4B5563;
+        cursor: pointer;
+        padding: 0.5rem;
+    }
+    
+    /* Mobile navigation menu */
+    .mobile-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 40;
+    }
+    
+    .mobile-nav.active {
+        display: block;
+    }
+    
+    .mobile-nav a {
+        display: block;
+        padding: 1rem;
+        border-bottom: 1px solid #E5E7EB;
+        color: #374151;
+    }
+    
+    .mobile-nav a:hover {
+        background-color: #F3F4F6;
+    }
+}
+
+/* Desktop - hide mobile menu button */
+@media (min-width: 769px) {
+    .mobile-menu-toggle,
+    .mobile-menu-btn {
+        display: none !important;
+    }
+    
+    .mobile-nav {
+        display: none !important;
+    }
+}
+
+/* Responsive tables */
+@media (max-width: 768px) {
+    table {
+        font-size: 0.875rem;
+    }
+    
+    table th,
+    table td {
+        padding: 0.5rem 0.25rem;
+    }
+    
+    /* Stack table cells on very small screens */
+    @media (max-width: 640px) {
+        .table-mobile-stack {
+            display: block;
+        }
+        
+        .table-mobile-stack thead {
+            display: none;
+        }
+        
+        .table-mobile-stack tbody tr {
+            display: block;
+            margin-bottom: 1rem;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+        
+        .table-mobile-stack tbody td {
+            display: block;
+            text-align: right;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #F3F4F6;
+        }
+        
+        .table-mobile-stack tbody td:before {
+            content: attr(data-label);
+            float: left;
+            font-weight: 600;
+            color: #6B7280;
+        }
+        
+        .table-mobile-stack tbody td:last-child {
+            border-bottom: none;
+        }
+    }
+}
+
+/* Search bar responsive */
+@media (max-width: 768px) {
+    .search-container {
+        width: 100%;
+        margin-top: 1rem;
+    }
+    
+    .search-container input {
+        width: 100%;
+    }
+}
+
+/* Card responsive adjustments */
+@media (max-width: 640px) {
+    .card {
+        padding: 1rem;
+    }
+    
+    .text-3xl {
+        font-size: 1.5rem;
+    }
+    
+    .text-2xl {
+        font-size: 1.25rem;
+    }
+    
+    .text-xl {
+        font-size: 1.125rem;
+    }
+}
+
+/* Hero section mobile */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 3rem 1rem !important;
+    }
+    
+    .hero-section h2 {
+        font-size: 2rem !important;
+    }
+    
+    .hero-section p {
+        font-size: 1rem !important;
+    }
+    
+    .hero-section .flex {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .hero-section a {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Statistics cards mobile */
+@media (max-width: 768px) {
+    .stats-card {
+        padding: 1rem;
+    }
+    
+    .stats-card .text-3xl {
+        font-size: 1.75rem;
+    }
+}
+
+/* Form inputs mobile */
+@media (max-width: 768px) {
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="time"],
+    select,
+    textarea {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+}
+
+/* Action buttons mobile */
+@media (max-width: 768px) {
+    .action-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .action-buttons button,
+    .action-buttons a {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Footer mobile */
+@media (max-width: 768px) {
+    footer {
+        padding: 1.5rem 1rem;
+        text-align: center;
+    }
+}
+
+/* Print styles */
+@media print {
+    aside,
+    .mobile-menu-btn,
+    .mobile-menu-toggle,
+    header button,
+    .action-buttons {
+        display: none !important;
+    }
+    
+    .ml-64 {
+        margin-left: 0 !important;
+    }
+}

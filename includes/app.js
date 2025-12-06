@@ -270,10 +270,137 @@ function formatDateTime(dateString) {
     return new Date(dateString).toLocaleString();
 }
 
+// ==================== MOBILE MENU FUNCTIONS ====================
+
+/**
+ * Initialize mobile sidebar menu
+ */
+function initMobileSidebar() {
+    const openBtn = document.getElementById('openSidebar');
+    const closeBtn = document.getElementById('closeSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    
+    if (openBtn && sidebar) {
+        openBtn.addEventListener('click', function() {
+            sidebar.classList.add('mobile-open');
+            if (overlay) {
+                overlay.classList.add('active');
+            }
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        });
+    }
+    
+    function closeSidebar() {
+        if (sidebar) {
+            sidebar.classList.remove('mobile-open');
+        }
+        if (overlay) {
+            overlay.classList.remove('active');
+        }
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+    
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeSidebar);
+    }
+    
+    if (overlay) {
+        overlay.addEventListener('click', closeSidebar);
+    }
+    
+    // Close sidebar when clicking on a link (mobile)
+    if (sidebar) {
+        const links = sidebar.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    closeSidebar();
+                }
+            });
+        });
+    }
+}
+
+/**
+ * Initialize mobile navigation menu
+ */
+function initMobileNav() {
+    const toggleBtn = document.getElementById('mobileNavToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    
+    if (toggleBtn && mobileNav) {
+        toggleBtn.addEventListener('click', function() {
+            mobileNav.classList.toggle('active');
+            
+            // Toggle icon
+            const icon = toggleBtn.querySelector('i');
+            if (icon) {
+                if (mobileNav.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        });
+        
+        // Close mobile nav when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!toggleBtn.contains(event.target) && !mobileNav.contains(event.target)) {
+                mobileNav.classList.remove('active');
+                const icon = toggleBtn.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        });
+        
+        // Close mobile nav when clicking on a link
+        const links = mobileNav.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileNav.classList.remove('active');
+                const icon = toggleBtn.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+    }
+}
+
+/**
+ * Handle window resize for responsive behavior
+ */
+function handleResize() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    
+    // Close mobile sidebar on resize to desktop
+    if (window.innerWidth > 768) {
+        if (sidebar) {
+            sidebar.classList.remove('mobile-open');
+        }
+        if (overlay) {
+            overlay.classList.remove('active');
+        }
+        document.body.style.overflow = '';
+    }
+}
+
 // ==================== INITIALIZATION ====================
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
     initModals();
+    initMobileSidebar();
+    initMobileNav();
+    
+    // Handle window resize
+    window.addEventListener('resize', handleResize);
 });
 

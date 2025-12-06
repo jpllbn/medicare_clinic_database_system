@@ -49,21 +49,27 @@ try {
     <?php include __DIR__ . '/../../includes/sidebar.php'; ?>
 
     <!-- Main Content Area -->
-    <div class="ml-64">
+    <div class="ml-0 md:ml-64">
         <!-- Header -->
-        <header class="sticky top-0 z-30 bg-white shadow-sm border-b border-gray-200 px-6 py-5">
+        <header class="sticky top-0 z-30 bg-white shadow-sm border-b border-gray-200 px-4 md:px-6 py-4 md:py-5">
             <div class="flex justify-between items-center">
-                <h2 class="text-xl font-semibold text-gray-800">Dashboard</h2>
+                <div class="flex items-center space-x-3">
+                    <!-- Mobile Menu Button -->
+                    <button id="openSidebar" class="mobile-menu-btn md:hidden text-gray-600 hover:text-gray-800 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <h2 class="text-lg md:text-xl font-semibold text-gray-800">Dashboard</h2>
+                </div>
                 <form action="../authentication/logout.php" method="POST" class="inline-block">
-                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
-                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                    <button type="submit" class="bg-red-500 text-white px-3 md:px-4 py-2 rounded-lg hover:bg-red-600 transition text-sm md:text-base">
+                        <i class="fas fa-sign-out-alt mr-1 md:mr-2"></i><span class="hidden sm:inline">Logout</span>
                     </button>
                 </form>
             </div>
         </header>
 
         <!-- Main Content -->
-        <main class="p-6">
+        <main class="p-4 md:p-6">
             <!-- Welcome Section -->
             <div class="mb-6">
                 <h1 class="text-2xl font-bold text-gray-800 mb-2">Welcome back, <?php echo htmlspecialchars($_SESSION['username'], ENT_QUOTES); ?>!</h1>
