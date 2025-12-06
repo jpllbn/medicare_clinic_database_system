@@ -2,7 +2,7 @@
 session_start();
 // Only allow logout via POST to avoid accidental GET logouts
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: home.php');
+    header('Location: ../pages/home.php');
     exit;
 }
 
@@ -16,6 +16,6 @@ if (ini_get('session.use_cookies')) {
     );
 }
 session_destroy();
-header('Location: login.php');
+header('Location: ../../index.php');
 exit;
 ?>

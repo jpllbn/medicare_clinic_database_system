@@ -7,7 +7,7 @@ $old = ['username' => '', 'email' => ''];
 
 // Include DB connection but suppress any direct output from connection file
 ob_start();
-require_once __DIR__ . '/../includes/connection.php';
+require_once __DIR__ . '/../../includes/connection.php';
 ob_end_clean();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -68,25 +68,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+<?php $pageTitle = 'Create Account - Medicare Clinic'; ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account</title>
-
-    <!-- Tailwind CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
+<?php include __DIR__ . '/../../includes/head.php'; ?>
 <body class="bg-gray-100 h-screen flex items-center justify-center">
 
     <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-sm">
-        <h2 class="text-2xl font-bold text-center mb-6">Create Account</h2>
+        <div class="text-center mb-6">
+            <i class="fas fa-user-plus text-green-600 text-5xl mb-4"></i>
+            <h2 class="text-2xl font-bold">Create Account</h2>
+        </div>
 
         <?php if (!empty($errors)): ?>
             <div class="mb-4">
                 <?php foreach ($errors as $err): ?>
-                    <p class="text-red-600 text-sm"><?php echo $err; ?></p>
+                    <p class="text-red-600 text-sm"><i class="fas fa-exclamation-circle mr-2"></i><?php echo $err; ?></p>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
@@ -95,46 +92,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <!-- Username -->
             <div class="mb-4">
-                <label class="block text-gray-700 mb-2" for="username">Username</label>
+                <label class="block text-gray-700 mb-2" for="username">
+                    <i class="fas fa-user mr-2 text-green-600"></i>Username
+                </label>
                 <input type="text" id="username" name="username" value="<?php echo $old['username']; ?>"
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
                     placeholder="Enter your username" required>
             </div>
 
             <!-- Email -->
             <div class="mb-4">
-                <label class="block text-gray-700 mb-2" for="email">Email</label>
+                <label class="block text-gray-700 mb-2" for="email">
+                    <i class="fas fa-envelope mr-2 text-green-600"></i>Email
+                </label>
                 <input type="email" id="email" name="email" value="<?php echo $old['email']; ?>"
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
                     placeholder="Enter your email" required>
             </div>
 
             <!-- Password -->
             <div class="mb-4">
-                <label class="block text-gray-700 mb-2" for="password">Password</label>
+                <label class="block text-gray-700 mb-2" for="password">
+                    <i class="fas fa-lock mr-2 text-green-600"></i>Password
+                </label>
                 <input type="password" id="password" name="password"
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
                     placeholder="Enter your password" required>
             </div>
 
             <!-- Confirm Password -->
             <div class="mb-4">
-                <label class="block text-gray-700 mb-2" for="confirm_password">Confirm Password</label>
+                <label class="block text-gray-700 mb-2" for="confirm_password">
+                    <i class="fas fa-lock mr-2 text-green-600"></i>Confirm Password
+                </label>
                 <input type="password" id="confirm_password" name="confirm_password"
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
                     placeholder="Confirm your password" required>
             </div>
 
             <!-- Register Button -->
             <button type="submit"
                 class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
-                Create Account
+                <i class="fas fa-user-plus mr-2"></i>Create Account
             </button>
 
             <!-- Link to Login -->
             <p class="text-center text-gray-600 mt-4">
                 Already have an account?
-                <a href="login.php" class="text-blue-600 hover:underline">Login</a>
+                <a href="login.php" class="text-blue-600 hover:underline">
+                    <i class="fas fa-sign-in-alt mr-1"></i>Login
+                </a>
             </p>
         </form>
     </div>

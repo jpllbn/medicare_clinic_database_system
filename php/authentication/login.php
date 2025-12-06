@@ -6,7 +6,7 @@ $old = ['username' => ''];
 
 // Include DB connection but suppress its direct output
 ob_start();
-require_once __DIR__ . '/../includes/connection.php';
+require_once __DIR__ . '/../../includes/connection.php';
 ob_end_clean();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['username'] = $dbUser;
                     $stmt->close();
                     $conn->close();
-                    header('Location: home.php');
+                    header('Location: ../pages/dashboard.php');
                     exit;
                 } else {
                     $errors[] = 'Invalid username or password.';
@@ -52,25 +52,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+<?php $pageTitle = 'Login - Medicare Clinic'; ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-
-    <!-- Tailwind CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
+<?php include __DIR__ . '/../../includes/head.php'; ?>
 <body class="bg-gray-100 h-screen flex items-center justify-center">
 
     <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-sm">
-        <h2 class="text-2xl font-bold text-center mb-6">Login</h2>
+        <div class="text-center mb-6">
+            <i class="fas fa-user-lock text-blue-600 text-5xl mb-4"></i>
+            <h2 class="text-2xl font-bold">Login</h2>
+        </div>
 
         <?php if (!empty($errors)): ?>
             <div class="mb-4">
                 <?php foreach ($errors as $err): ?>
-                    <p class="text-red-600 text-sm"><?php echo $err; ?></p>
+                    <p class="text-red-600 text-sm"><i class="fas fa-exclamation-circle mr-2"></i><?php echo $err; ?></p>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
@@ -78,7 +75,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
             <!-- Username -->
             <div class="mb-4">
-                <label class="block text-gray-700 mb-2" for="username">Username</label>
+                <label class="block text-gray-700 mb-2" for="username">
+                    <i class="fas fa-user mr-2 text-blue-600"></i>Username
+                </label>
                 <input type="text" id="username" name="username" value="<?php echo $old['username']; ?>"
                     class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                     placeholder="Enter your username" required>
@@ -86,7 +85,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <!-- Password -->
             <div class="mb-4">
-                <label class="block text-gray-700 mb-2" for="password">Password</label>
+                <label class="block text-gray-700 mb-2" for="password">
+                    <i class="fas fa-lock mr-2 text-blue-600"></i>Password
+                </label>
                 <input type="password" id="password" name="password"
                     class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                     placeholder="Enter your password" required>
@@ -95,13 +96,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <!-- Login Button -->
             <button type="submit"
                 class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
-                Login
+                <i class="fas fa-sign-in-alt mr-2"></i>Login
             </button>
 
             <!-- Create Account Link -->
             <p class="text-center text-gray-600 mt-4">
                 Don't have an account?
-                <a href="register.php" class="text-blue-600 hover:underline">Create an account</a>
+                <a href="register.php" class="text-blue-600 hover:underline">
+                    <i class="fas fa-user-plus mr-1"></i>Create an account
+                </a>
             </p>
         </form>
     </div>
