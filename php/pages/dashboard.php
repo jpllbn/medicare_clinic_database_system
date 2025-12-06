@@ -177,7 +177,7 @@ try {
     </div>
 
     <!-- Custom JavaScript -->
-    <script src="../includes/app.js"></script>
+    <script src="../../includes/app.js"></script>
 </body>
 
 </html>

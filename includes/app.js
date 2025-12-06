@@ -14,23 +14,30 @@ function openViewModal(patient) {
     
     if (!modal || !content) return;
     
+    // Escape HTML to prevent XSS
+    const escapeHtml = (text) => {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    };
+    
     content.innerHTML = `
         <div class="grid grid-cols-2 gap-4">
             <div>
                 <p class="text-sm text-gray-500 mb-1">Patient ID</p>
-                <p class="font-medium text-gray-800">${patient.patient_id || 'N/A'}</p>
+                <p class="font-medium text-gray-800">${escapeHtml(patient.patient_id || 'N/A')}</p>
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-1">Full Name</p>
-                <p class="font-medium text-gray-800">${(patient.first_name || '') + ' ' + (patient.last_name || '')}</p>
+                <p class="font-medium text-gray-800">${escapeHtml((patient.first_name || '') + ' ' + (patient.last_name || ''))}</p>
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-1">Email</p>
-                <p class="font-medium text-gray-800">${patient.email || 'N/A'}</p>
+                <p class="font-medium text-gray-800">${escapeHtml(patient.email || 'N/A')}</p>
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-1">Phone</p>
-                <p class="font-medium text-gray-800">${patient.phone || 'N/A'}</p>
+                <p class="font-medium text-gray-800">${escapeHtml(patient.phone || 'N/A')}</p>
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-1">Date of Birth</p>
@@ -38,11 +45,11 @@ function openViewModal(patient) {
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-1">Gender</p>
-                <p class="font-medium text-gray-800">${patient.gender || 'N/A'}</p>
+                <p class="font-medium text-gray-800">${escapeHtml(patient.gender || 'N/A')}</p>
             </div>
             <div class="col-span-2">
                 <p class="text-sm text-gray-500 mb-1">Address</p>
-                <p class="font-medium text-gray-800">${patient.address || 'N/A'}</p>
+                <p class="font-medium text-gray-800">${escapeHtml(patient.address || 'N/A')}</p>
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-1">Created At</p>
@@ -56,6 +63,7 @@ function openViewModal(patient) {
     `;
     
     modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
 }
 
 /**
@@ -65,6 +73,7 @@ function closeViewModal() {
     const modal = document.getElementById('viewModal');
     if (modal) {
         modal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
     }
 }
 
@@ -105,6 +114,7 @@ function closeEditModal() {
     const modal = document.getElementById('editModal');
     if (modal) {
         modal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
     }
 }
 
@@ -119,6 +129,13 @@ function openAppointmentViewModal(appointment) {
     
     if (!modal || !content) return;
     
+    // Escape HTML to prevent XSS
+    const escapeHtml = (text) => {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    };
+    
     const appointmentDate = appointment.appointment_date ? new Date(appointment.appointment_date) : null;
     const dateStr = appointmentDate ? appointmentDate.toLocaleDateString() : 'N/A';
     const timeStr = appointmentDate ? appointmentDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : 'N/A';
@@ -127,27 +144,27 @@ function openAppointmentViewModal(appointment) {
         <div class="grid grid-cols-2 gap-4">
             <div>
                 <p class="text-sm text-gray-500 mb-1">Appointment ID</p>
-                <p class="font-medium text-gray-800">${appointment.appointment_id || 'N/A'}</p>
+                <p class="font-medium text-gray-800">${escapeHtml(appointment.appointment_id || 'N/A')}</p>
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-1">Status</p>
                 <p class="font-medium text-gray-800">
                     <span class="px-2 py-1 rounded-full text-xs ${getStatusColorClass(appointment.status)}">
-                        ${appointment.status || 'N/A'}
+                        ${escapeHtml(appointment.status || 'N/A')}
                     </span>
                 </p>
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-1">Patient Name</p>
-                <p class="font-medium text-gray-800">${(appointment.first_name || '') + ' ' + (appointment.last_name || '')}</p>
+                <p class="font-medium text-gray-800">${escapeHtml((appointment.first_name || '') + ' ' + (appointment.last_name || ''))}</p>
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-1">Patient Email</p>
-                <p class="font-medium text-gray-800">${appointment.email || 'N/A'}</p>
+                <p class="font-medium text-gray-800">${escapeHtml(appointment.email || 'N/A')}</p>
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-1">Patient Phone</p>
-                <p class="font-medium text-gray-800">${appointment.phone || 'N/A'}</p>
+                <p class="font-medium text-gray-800">${escapeHtml(appointment.phone || 'N/A')}</p>
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-1">Appointment Date</p>
@@ -159,11 +176,11 @@ function openAppointmentViewModal(appointment) {
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-1">Appointment Type</p>
-                <p class="font-medium text-gray-800">${appointment.appointment_type || 'N/A'}</p>
+                <p class="font-medium text-gray-800">${escapeHtml(appointment.appointment_type || 'N/A')}</p>
             </div>
             <div class="col-span-2">
                 <p class="text-sm text-gray-500 mb-1">Notes</p>
-                <p class="font-medium text-gray-800">${appointment.notes || 'N/A'}</p>
+                <p class="font-medium text-gray-800">${escapeHtml(appointment.notes || 'N/A')}</p>
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-1">Created At</p>
@@ -177,6 +194,7 @@ function openAppointmentViewModal(appointment) {
     `;
     
     modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
 }
 
 /**
@@ -211,6 +229,7 @@ function openAppointmentEditModal(appointment) {
     const modal = document.getElementById('editModal');
     if (modal) {
         modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
     }
 }
 
@@ -252,6 +271,18 @@ function initModals() {
             }
         });
     }
+    
+    // Close modals with ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            if (viewModal && viewModal.classList.contains('active')) {
+                closeViewModal();
+            }
+            if (editModal && editModal.classList.contains('active')) {
+                closeEditModal();
+            }
+        }
+    });
 }
 
 /**
@@ -392,6 +423,80 @@ function handleResize() {
     }
 }
 
+// ==================== SEARCH FUNCTIONALITY ====================
+
+/**
+ * Initialize patient search functionality
+ */
+function initPatientSearch() {
+    const searchInput = document.getElementById('searchPatients');
+    const tableBody = document.getElementById('patientsTableBody');
+    const patientCount = document.getElementById('patientCount');
+    
+    if (searchInput && tableBody) {
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            const rows = tableBody.querySelectorAll('.patient-row');
+            let visibleCount = 0;
+            
+            rows.forEach(row => {
+                const name = row.getAttribute('data-name') || '';
+                const email = row.getAttribute('data-email') || '';
+                const phone = row.getAttribute('data-phone') || '';
+                
+                if (name.includes(searchTerm) || email.includes(searchTerm) || phone.includes(searchTerm)) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            
+            // Update count
+            if (patientCount) {
+                patientCount.textContent = visibleCount;
+            }
+        });
+    }
+}
+
+/**
+ * Initialize appointment search functionality
+ */
+function initAppointmentSearch() {
+    const searchInput = document.getElementById('searchAppointments');
+    const tableBody = document.getElementById('appointmentsTableBody');
+    const appointmentCount = document.getElementById('appointmentCount');
+    
+    if (searchInput && tableBody) {
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            const rows = tableBody.querySelectorAll('.appointment-row');
+            let visibleCount = 0;
+            
+            rows.forEach(row => {
+                const patient = row.getAttribute('data-patient') || '';
+                const phone = row.getAttribute('data-phone') || '';
+                const type = row.getAttribute('data-type') || '';
+                const status = row.getAttribute('data-status') || '';
+                
+                if (patient.includes(searchTerm) || phone.includes(searchTerm) || 
+                    type.includes(searchTerm) || status.includes(searchTerm)) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            
+            // Update count
+            if (appointmentCount) {
+                appointmentCount.textContent = visibleCount;
+            }
+        });
+    }
+}
+
 // ==================== INITIALIZATION ====================
 
 // Initialize when DOM is ready
@@ -399,6 +504,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initModals();
     initMobileSidebar();
     initMobileNav();
+    initPatientSearch();
+    initAppointmentSearch();
     
     // Handle window resize
     window.addEventListener('resize', handleResize);

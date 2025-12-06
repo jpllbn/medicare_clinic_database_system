@@ -393,41 +393,7 @@ try {
     </div>
 
     <!-- Custom JavaScript -->
-    <script src="../includes/app.js"></script>
-    <script>
-        // Patient search functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchPatients');
-            const tableBody = document.getElementById('patientsTableBody');
-            const patientCount = document.getElementById('patientCount');
-            
-            if (searchInput && tableBody) {
-                searchInput.addEventListener('input', function() {
-                    const searchTerm = this.value.toLowerCase().trim();
-                    const rows = tableBody.querySelectorAll('.patient-row');
-                    let visibleCount = 0;
-                    
-                    rows.forEach(row => {
-                        const name = row.getAttribute('data-name') || '';
-                        const email = row.getAttribute('data-email') || '';
-                        const phone = row.getAttribute('data-phone') || '';
-                        
-                        if (name.includes(searchTerm) || email.includes(searchTerm) || phone.includes(searchTerm)) {
-                            row.style.display = '';
-                            visibleCount++;
-                        } else {
-                            row.style.display = 'none';
-                        }
-                    });
-                    
-                    // Update count
-                    if (patientCount) {
-                        patientCount.textContent = visibleCount;
-                    }
-                });
-            }
-        });
-    </script>
+    <script src="../../includes/app.js"></script>
 
 </body>
 

@@ -292,7 +292,7 @@ try {
                                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-gray-200">
+                            <tbody class="divide-y divide-gray-200" id="appointmentsTableBody">
                                 <?php foreach ($appointments as $appointment): ?>
                                     <tr class="hover:bg-gray-50 appointment-row" 
                                         data-patient="<?php echo strtolower(htmlspecialchars(($appointment['first_name'] ?? '') . ' ' . ($appointment['last_name'] ?? ''))); ?>" 
@@ -497,43 +497,7 @@ try {
     </div>
 
     <!-- Custom JavaScript -->
-    <script src="../includes/app.js"></script>
-    <script>
-        // Appointment search functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchAppointments');
-            const tableBody = document.getElementById('appointmentsTableBody');
-            const appointmentCount = document.getElementById('appointmentCount');
-            
-            if (searchInput && tableBody) {
-                searchInput.addEventListener('input', function() {
-                    const searchTerm = this.value.toLowerCase().trim();
-                    const rows = tableBody.querySelectorAll('.appointment-row');
-                    let visibleCount = 0;
-                    
-                    rows.forEach(row => {
-                        const patient = row.getAttribute('data-patient') || '';
-                        const phone = row.getAttribute('data-phone') || '';
-                        const type = row.getAttribute('data-type') || '';
-                        const status = row.getAttribute('data-status') || '';
-                        
-                        if (patient.includes(searchTerm) || phone.includes(searchTerm) || 
-                            type.includes(searchTerm) || status.includes(searchTerm)) {
-                            row.style.display = '';
-                            visibleCount++;
-                        } else {
-                            row.style.display = 'none';
-                        }
-                    });
-                    
-                    // Update count
-                    if (appointmentCount) {
-                        appointmentCount.textContent = visibleCount;
-                    }
-                });
-            }
-        });
-    </script>
+    <script src="../../includes/app.js"></script>
 
 </body>
 
