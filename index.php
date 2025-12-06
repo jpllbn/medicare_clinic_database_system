@@ -14,11 +14,11 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-4xl md:text-5xl font-bold mb-4">Medicare Clinic Database System</h2>
             <p class="text-xl md:text-2xl mb-8 text-blue-100">Comprehensive software solution for Patient and Appointment Management</p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="php/authentication/login.php" class="bg-white text-blue-600 px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition shadow-lg text-center">
+            <div class="flex justify-center space-x-4">
+                <a href="php/authentication/login.php" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition shadow-lg">
                     Get Started
                 </a>
-                <a href="#features" class="bg-blue-700 text-white px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 transition border-2 border-white text-center">
+                <a href="#features" class="bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 transition border-2 border-white">
                     Learn More
                 </a>
             </div>
@@ -84,11 +84,11 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h3 class="text-3xl font-bold mb-4">Ready to Get Started?</h3>
             <p class="text-xl mb-8 text-blue-100">Start using Medicare Clinic Database System today and streamline your patient and appointment management.</p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="php/authentication/register.php" class="bg-white text-blue-600 px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition shadow-lg text-center">
+            <div class="flex justify-center space-x-4">
+                <a href="php/authentication/register.php" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition shadow-lg">
                     Create Account
                 </a>
-                <a href="php/authentication/login.php" class="bg-blue-700 text-white px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-blue-800 transition border-2 border-white text-center">
+                <a href="php/authentication/login.php" class="bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-800 transition border-2 border-white">
                     Sign In
                 </a>
             </div>

@@ -142,27 +142,21 @@ try {
     <?php include __DIR__ . '/../../includes/sidebar.php'; ?>
 
     <!-- Main Content Area -->
-    <div class="ml-0 md:ml-64">
+    <div class="ml-64">
         <!-- Header -->
-        <header class="sticky top-0 z-30 bg-white shadow-sm border-b border-gray-200 px-4 md:px-6 py-4 md:py-5">
+        <header class="sticky top-0 z-30 bg-white shadow-sm border-b border-gray-200 px-6 py-5">
             <div class="flex justify-between items-center">
-                <div class="flex items-center space-x-3">
-                    <!-- Mobile Menu Button -->
-                    <button id="openSidebar" class="mobile-menu-btn md:hidden text-gray-600 hover:text-gray-800 focus:outline-none">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                    <h2 class="text-lg md:text-xl font-semibold text-gray-800">Appointments Management</h2>
-                </div>
+                <h2 class="text-xl font-semibold text-gray-800">Appointments Management</h2>
                 <form action="../authentication/logout.php" method="POST" class="inline-block">
-                    <button type="submit" class="bg-red-500 text-white px-3 md:px-4 py-2 rounded-lg hover:bg-red-600 transition text-sm md:text-base">
-                        <i class="fas fa-sign-out-alt mr-1 md:mr-2"></i><span class="hidden sm:inline">Logout</span>
+                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
                     </button>
                 </form>
             </div>
         </header>
 
         <!-- Main Content -->
-        <main class="p-4 md:p-6">
+        <main class="p-6">
             <!-- Messages -->
             <?php if (!empty($errors)): ?>
                 <div class="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
@@ -259,14 +253,14 @@ try {
 
             <!-- Appointments Table -->
             <div class="bg-white rounded-lg shadow-md p-6">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
+                <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-semibold text-gray-800">
                         <i class="fas fa-calendar-alt mr-2 text-blue-600"></i>All Appointments (<span id="appointmentCount"><?php echo count($appointments); ?></span>)
                     </h3>
-                    <div class="flex items-center space-x-2 w-full md:w-auto">
-                        <div class="relative flex-1 md:flex-none">
+                    <div class="flex items-center space-x-2">
+                        <div class="relative">
                             <input type="text" id="searchAppointments" placeholder="Search appointments..." 
-                                class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 w-full md:w-64">
+                                class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 w-64">
                             <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                         </div>
                     </div>

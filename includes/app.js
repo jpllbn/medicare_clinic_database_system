@@ -423,80 +423,6 @@ function handleResize() {
     }
 }
 
-// ==================== SEARCH FUNCTIONALITY ====================
-
-/**
- * Initialize patient search functionality
- */
-function initPatientSearch() {
-    const searchInput = document.getElementById('searchPatients');
-    const tableBody = document.getElementById('patientsTableBody');
-    const patientCount = document.getElementById('patientCount');
-    
-    if (searchInput && tableBody) {
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase().trim();
-            const rows = tableBody.querySelectorAll('.patient-row');
-            let visibleCount = 0;
-            
-            rows.forEach(row => {
-                const name = row.getAttribute('data-name') || '';
-                const email = row.getAttribute('data-email') || '';
-                const phone = row.getAttribute('data-phone') || '';
-                
-                if (name.includes(searchTerm) || email.includes(searchTerm) || phone.includes(searchTerm)) {
-                    row.style.display = '';
-                    visibleCount++;
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-            
-            // Update count
-            if (patientCount) {
-                patientCount.textContent = visibleCount;
-            }
-        });
-    }
-}
-
-/**
- * Initialize appointment search functionality
- */
-function initAppointmentSearch() {
-    const searchInput = document.getElementById('searchAppointments');
-    const tableBody = document.getElementById('appointmentsTableBody');
-    const appointmentCount = document.getElementById('appointmentCount');
-    
-    if (searchInput && tableBody) {
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase().trim();
-            const rows = tableBody.querySelectorAll('.appointment-row');
-            let visibleCount = 0;
-            
-            rows.forEach(row => {
-                const patient = row.getAttribute('data-patient') || '';
-                const phone = row.getAttribute('data-phone') || '';
-                const type = row.getAttribute('data-type') || '';
-                const status = row.getAttribute('data-status') || '';
-                
-                if (patient.includes(searchTerm) || phone.includes(searchTerm) || 
-                    type.includes(searchTerm) || status.includes(searchTerm)) {
-                    row.style.display = '';
-                    visibleCount++;
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-            
-            // Update count
-            if (appointmentCount) {
-                appointmentCount.textContent = visibleCount;
-            }
-        });
-    }
-}
-
 // ==================== INITIALIZATION ====================
 
 // Initialize when DOM is ready
@@ -504,8 +430,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initModals();
     initMobileSidebar();
     initMobileNav();
-    initPatientSearch();
-    initAppointmentSearch();
     
     // Handle window resize
     window.addEventListener('resize', handleResize);
