@@ -255,8 +255,15 @@ try {
             <div class="bg-white rounded-lg shadow-md p-6">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-semibold text-gray-800">
-                        <i class="fas fa-calendar-alt mr-2 text-blue-600"></i>All Appointments (<?php echo count($appointments); ?>)
+                        <i class="fas fa-calendar-alt mr-2 text-blue-600"></i>All Appointments (<span id="appointmentCount"><?php echo count($appointments); ?></span>)
                     </h3>
+                    <div class="flex items-center space-x-2">
+                        <div class="relative">
+                            <input type="text" id="searchAppointments" placeholder="Search appointments..." 
+                                class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 w-64">
+                            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
                 </div>
                 
                 <?php if (empty($appointments)): ?>
@@ -281,7 +288,11 @@ try {
                             </thead>
                             <tbody class="divide-y divide-gray-200">
                                 <?php foreach ($appointments as $appointment): ?>
-                                    <tr class="hover:bg-gray-50">
+                                    <tr class="hover:bg-gray-50 appointment-row" 
+                                        data-patient="<?php echo strtolower(htmlspecialchars(($appointment['first_name'] ?? '') . ' ' . ($appointment['last_name'] ?? ''))); ?>" 
+                                        data-phone="<?php echo htmlspecialchars($appointment['phone'] ?? ''); ?>" 
+                                        data-type="<?php echo strtolower(htmlspecialchars($appointment['appointment_type'] ?? '')); ?>" 
+                                        data-status="<?php echo strtolower(htmlspecialchars($appointment['status'] ?? '')); ?>">
                                         <td class="px-4 py-3 text-sm text-gray-900"><?php echo htmlspecialchars($appointment['appointment_id'] ?? ''); ?></td>
                                         <td class="px-4 py-3 text-sm">
                                             <div class="font-medium text-gray-900">
@@ -481,6 +492,42 @@ try {
 
     <!-- Custom JavaScript -->
     <script src="../includes/app.js"></script>
+    <script>
+        // Appointment search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchAppointments');
+            const tableBody = document.getElementById('appointmentsTableBody');
+            const appointmentCount = document.getElementById('appointmentCount');
+            
+            if (searchInput && tableBody) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    const rows = tableBody.querySelectorAll('.appointment-row');
+                    let visibleCount = 0;
+                    
+                    rows.forEach(row => {
+                        const patient = row.getAttribute('data-patient') || '';
+                        const phone = row.getAttribute('data-phone') || '';
+                        const type = row.getAttribute('data-type') || '';
+                        const status = row.getAttribute('data-status') || '';
+                        
+                        if (patient.includes(searchTerm) || phone.includes(searchTerm) || 
+                            type.includes(searchTerm) || status.includes(searchTerm)) {
+                            row.style.display = '';
+                            visibleCount++;
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                    
+                    // Update count
+                    if (appointmentCount) {
+                        appointmentCount.textContent = visibleCount;
+                    }
+                });
+            }
+        });
+    </script>
 
 </body>
 

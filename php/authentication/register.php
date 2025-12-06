@@ -72,9 +72,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 <?php include __DIR__ . '/../../includes/head.php'; ?>
-<body class="bg-gray-100 h-screen flex items-center justify-center">
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <!-- Header -->
+    <?php include __DIR__ . '/../../includes/header.php'; ?>
 
-    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-sm">
+    <!-- Main Content -->
+    <main class="flex-1 flex items-center justify-center py-12">
+        <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-sm">
         <div class="text-center mb-6">
             <i class="fas fa-user-plus text-green-600 text-5xl mb-4"></i>
             <h2 class="text-2xl font-bold">Create Account</h2>
@@ -144,7 +148,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </a>
             </p>
         </form>
-    </div>
+        </div>
+    </main>
 
+    <!-- Footer -->
+    <?php include __DIR__ . '/../../includes/footer.php'; ?>
 </body>
 </html>

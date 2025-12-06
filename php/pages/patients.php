@@ -208,8 +208,15 @@ try {
             <div class="bg-white rounded-lg shadow-md p-6">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-semibold text-gray-800">
-                        <i class="fas fa-users mr-2 text-blue-600"></i>All Patients (<?php echo count($patients); ?>)
+                        <i class="fas fa-users mr-2 text-blue-600"></i>All Patients (<span id="patientCount"><?php echo count($patients); ?></span>)
                     </h3>
+                    <div class="flex items-center space-x-2">
+                        <div class="relative">
+                            <input type="text" id="searchPatients" placeholder="Search patients..." 
+                                class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 w-64">
+                            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
                 </div>
                 
                 <?php if (empty($patients)): ?>
@@ -232,9 +239,11 @@ try {
                                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-gray-200">
+                            <tbody class="divide-y divide-gray-200" id="patientsTableBody">
                                 <?php foreach ($patients as $patient): ?>
-                                    <tr class="hover:bg-gray-50">
+                                    <tr class="hover:bg-gray-50 patient-row" data-name="<?php echo strtolower(htmlspecialchars(($patient['first_name'] ?? '') . ' ' . ($patient['last_name'] ?? ''))); ?>" 
+                                        data-email="<?php echo strtolower(htmlspecialchars($patient['email'] ?? '')); ?>" 
+                                        data-phone="<?php echo htmlspecialchars($patient['phone'] ?? ''); ?>">
                                         <td class="px-4 py-3 text-sm text-gray-900"><?php echo htmlspecialchars($patient['patient_id'] ?? ''); ?></td>
                                         <td class="px-4 py-3 text-sm text-gray-900">
                                             <?php echo htmlspecialchars(($patient['first_name'] ?? '') . ' ' . ($patient['last_name'] ?? '')); ?>
@@ -379,6 +388,40 @@ try {
 
     <!-- Custom JavaScript -->
     <script src="../includes/app.js"></script>
+    <script>
+        // Patient search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchPatients');
+            const tableBody = document.getElementById('patientsTableBody');
+            const patientCount = document.getElementById('patientCount');
+            
+            if (searchInput && tableBody) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    const rows = tableBody.querySelectorAll('.patient-row');
+                    let visibleCount = 0;
+                    
+                    rows.forEach(row => {
+                        const name = row.getAttribute('data-name') || '';
+                        const email = row.getAttribute('data-email') || '';
+                        const phone = row.getAttribute('data-phone') || '';
+                        
+                        if (name.includes(searchTerm) || email.includes(searchTerm) || phone.includes(searchTerm)) {
+                            row.style.display = '';
+                            visibleCount++;
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                    
+                    // Update count
+                    if (patientCount) {
+                        patientCount.textContent = visibleCount;
+                    }
+                });
+            }
+        });
+    </script>
 
 </body>
 
